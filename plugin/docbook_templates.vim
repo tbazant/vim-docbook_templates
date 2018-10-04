@@ -13,66 +13,65 @@ if exists("g:loaded_docbook_templates")
 endif
 let g:loaded_docbook_templates = 1
 
-
-map! <unique> <Leader>ap <appendix <Leader>id>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <Leader>id><CR><ESC>O<Leader>tt<ESC>o<Leader>pt<ESC>[][]i
-map! <unique> <Leader>cl <calloutlist>><Leader>ct
-map! <unique> <Leader>co <co <Leader>id/><ESC>F"i
-map! <unique> <Leader>ct <callout arearefs="">><Leader>pa<ESC>[[[[f"a
-map! <unique> <Leader>cm <command>
-map! <unique> <Leader>ch <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <Leader>id><CR><ESC>O<Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>emb <emphasis role="bold">
-map! <unique> <Leader>em <emphasis>
-map! <unique> <Leader>ex <example>><Leader>tt<ESC>o<Leader>pa
-map! <unique> <Leader>fn <filename>
-map! <unique> <Leader>fg <figure>><Leader>tt<ESC>o<mediaobject>><imageobject role="fo">><imagedata fileref="" width="70%" format="PNG"/><ESC>jo<imageobject role="html">><imagedata fileref="" width="70%" format="PNG"/><ESC>[][]i
-map! <unique> <Leader>ge <glossentry>><Leader>gt<ESC>o<Leader>gd
-map! <unique> <Leader>gd <glossdef>><Leader>pa
-map! <unique> <Leader>gl <glossary>><Leader>tt<ESC>o<Leader>ge<ESC>?title<CR>F<i
-map! <unique> <Leader>gt <glossterm <Leader>id>
-map! <unique> <Leader>gm <guimenu>
-map! <unique> <Leader>id xml:id=""
-map! <unique> <Leader>il <itemizedlist>><Leader>li
-map! <unique> <Leader>im <important>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>in <indexterm>><primary><ESC>o<secondary><ESC>[]i
-map! <unique> <Leader>kc <keycap>
-map! <unique> <Leader>kcf <keycap function=""/><ESC>F"i
-map! <unique> <Leader>kca <Leader>kcfalt<ESC>f>A
-map! <unique> <Leader>kcc <Leader>kcfcontrol<ESC>f>A
-map! <unique> <Leader>kcd <Leader>kcfdelete<ESC>f>A
-map! <unique> <Leader>kcs <Leader>kcfshift<ESC>f>A
-map! <unique> <Leader>kce <Leader>kcfescape<ESC>f>A
-map! <unique> <Leader>km <keycombo>><Leader>kc<ESC>O<Leader>kcf
-map! <unique> <Leader>li <listitem>><Leader>pa
-map! <unique> <Leader>ll <literal>
-map! <unique> <Leader>ln <link xlink:href=""/><ESC>F"i
-map! <unique> <Leader>nt <note>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>ol <orderedlist>><Leader>li
-map! <unique> <Leader>op <option>
-map! <unique> <Leader>pa <para>>
-map! <unique> <Leader>ph <phrase>
-map! <unique> <Leader>php <phrase role="productname">
-map! <unique> <Leader>pk <package>
-map! <unique> <Leader>pr <procedure>><Leader>st
-map! <unique> <Leader>pt <part <Leader>id>><Leader>tt<ESC>o
-map! <unique> <Leader>qt <quote>
-map! <unique> <Leader>rp <replaceable>
-map! <unique> <Leader>s1 <sect1 <Leader>id>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>s2 <sect2 <Leader>id>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>s3 <sect3>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>sc <screen>><ESC>kVjj:le<CR>ji
-map! <unique> <Leader>si <systemitem>
-map! <unique> <Leader>sid <systemitem class="daemon">
-map! <unique> <Leader>siip <systemitem class="ipaddress">
-map! <unique> <Leader>siu <systemitem class="username">
-map! <unique> <Leader>sir <systemitem class="resource">
-map! <unique> <Leader>st <step>><Leader>pa
-map! <unique> <Leader>tp <tip>><Leader>tt<ESC>o<Leader>pa
-map! <unique> <Leader>tt <title>
-map! <unique> <Leader>va <varname>
-map! <unique> <Leader>ve <varlistentry>><term><ESC>o<Leader>li<ESC>[]i
-map! <unique> <Leader>vl <variablelist>><Leader>ve
-map! <unique> <Leader>wn <warning>><Leader>tt<ESC>o<Leader>pa<ESC>[]i
-map! <unique> <Leader>xr <xref linkend=""/><ESC>F"i
+map! <unique> <localleader>ap <appendix <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pt<ESC>[][]i
+map! <unique> <localleader>cl <calloutlist>><localleader>ct
+map! <unique> <localleader>co <co <localleader>id/><ESC>F"i
+map! <unique> <localleader>ct <callout arearefs="">><localleader>pa<ESC>[[[[f"a
+map! <unique> <localleader>cm <command>
+map! <unique> <localleader>ch <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>emb <emphasis role="bold">
+map! <unique> <localleader>em <emphasis>
+map! <unique> <localleader>ex <example>><localleader>tt<ESC>o<localleader>pa
+map! <unique> <localleader>fn <filename>
+map! <unique> <localleader>fg <figure>><localleader>tt<ESC>o<mediaobject>><imageobject role="fo">><imagedata fileref="" width="70%" format="PNG"/><ESC>jo<imageobject role="html">><imagedata fileref="" width="70%" format="PNG"/><ESC>[][]i
+map! <unique> <localleader>ge <glossentry>><localleader>gt<ESC>o<localleader>gd
+map! <unique> <localleader>gd <glossdef>><localleader>pa
+map! <unique> <localleader>gl <glossary>><localleader>tt<ESC>o<localleader>ge<ESC>?title<CR>F<i
+map! <unique> <localleader>gt <glossterm <localleader>id>
+map! <unique> <localleader>gm <guimenu>
+map! <unique> <localleader>id xml:id=""
+map! <unique> <localleader>il <itemizedlist>><localleader>li
+map! <unique> <localleader>im <important>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>in <indexterm>><primary><ESC>o<secondary><ESC>[]i
+map! <unique> <localleader>kc <keycap>
+map! <unique> <localleader>kcf <keycap function=""/><ESC>F"i
+map! <unique> <localleader>kca <localleader>kcfalt<ESC>f>A
+map! <unique> <localleader>kcc <localleader>kcfcontrol<ESC>f>A
+map! <unique> <localleader>kcd <localleader>kcfdelete<ESC>f>A
+map! <unique> <localleader>kcs <localleader>kcfshift<ESC>f>A
+map! <unique> <localleader>kce <localleader>kcfescape<ESC>f>A
+map! <unique> <localleader>km <keycombo>><localleader>kc<ESC>O<localleader>kcf
+map! <unique> <localleader>li <listitem>><localleader>pa
+map! <unique> <localleader>ll <literal>
+map! <unique> <localleader>ln <link xlink:href=""/><ESC>F"i
+map! <unique> <localleader>nt <note>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>ol <orderedlist>><localleader>li
+map! <unique> <localleader>op <option>
+map! <unique> <localleader>pa <para>>
+map! <unique> <localleader>ph <phrase>
+map! <unique> <localleader>php <phrase role="productname">
+map! <unique> <localleader>pk <package>
+map! <unique> <localleader>pr <procedure>><localleader>st
+map! <unique> <localleader>pt <part <localleader>id>><localleader>tt<ESC>o
+map! <unique> <localleader>qt <quote>
+map! <unique> <localleader>rp <replaceable>
+map! <unique> <localleader>s1 <sect1 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>s2 <sect2 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>s3 <sect3>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>sc <screen>><ESC>kVjj:le<CR>ji
+map! <unique> <localleader>si <systemitem>
+map! <unique> <localleader>sid <systemitem class="daemon">
+map! <unique> <localleader>siip <systemitem class="ipaddress">
+map! <unique> <localleader>siu <systemitem class="username">
+map! <unique> <localleader>sir <systemitem class="resource">
+map! <unique> <localleader>st <step>><localleader>pa
+map! <unique> <localleader>tp <tip>><localleader>tt<ESC>o<localleader>pa
+map! <unique> <localleader>tt <title>
+map! <unique> <localleader>va <varname>
+map! <unique> <localleader>ve <varlistentry>><term><ESC>o<localleader>li<ESC>[]i
+map! <unique> <localleader>vl <variablelist>><localleader>ve
+map! <unique> <localleader>wn <warning>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
+map! <unique> <localleader>xr <xref linkend=""/><ESC>F"i
 
 let &cpo = s:save_cpo
