@@ -45,6 +45,7 @@ map! <unique> <localleader>km <keycombo>><localleader>kc<ESC>O<localleader>kcf
 map! <unique> <localleader>li <listitem>><localleader>pa
 map! <unique> <localleader>ll <literal>
 map! <unique> <localleader>ln <link xlink:href=""/><ESC>F"i
+map! <unique> <localleader>mc <menuchoice><localleader>gm<ESC>11li<localleader>gm<ESC>18hi
 map! <unique> <localleader>nt <note>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
 map! <unique> <localleader>ol <orderedlist>><localleader>li
 map! <unique> <localleader>op <option>
@@ -55,6 +56,7 @@ map! <unique> <localleader>pk <package>
 map! <unique> <localleader>pr <procedure>><localleader>st
 map! <unique> <localleader>pt <part <localleader>id>><localleader>tt<ESC>o
 map! <unique> <localleader>qt <quote>
+map! <unique> <localleader>rm <remark>
 map! <unique> <localleader>rp <replaceable>
 map! <unique> <localleader>s1 <sect1 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
 map! <unique> <localleader>s2 <sect2 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
@@ -72,6 +74,14 @@ map! <unique> <localleader>va <varname>
 map! <unique> <localleader>ve <varlistentry>><term><ESC>o<localleader>li<ESC>[]i
 map! <unique> <localleader>vl <variablelist>><localleader>ve
 map! <unique> <localleader>wn <warning>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>xr <xref linkend=""/><ESC>F"i
+map! <unique> <localleader>xr <xref linkend="/><ESC>T"i
+
+" tables
+map! <unique> <localleader>te <entry>
+map! <unique> <localleader>tr <row>><localleader>te
+map! <unique> <localleader>th <thead>><localleader>tr
+map! <unique> <localleader>td <tbody>><localleader>tr
+map! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
+
 
 let &cpo = s:save_cpo
