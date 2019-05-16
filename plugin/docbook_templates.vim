@@ -74,7 +74,8 @@ map! <unique> <localleader>va <varname>
 map! <unique> <localleader>ve <varlistentry>><term><ESC>o<localleader>li<ESC>[]i
 map! <unique> <localleader>vl <variablelist>><localleader>ve
 map! <unique> <localleader>wn <warning>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>xr <xref linkend="/><ESC>T"i
+map! <unique> <localleader>xr <xref linkend="" /><ESC>F"i
+map! <unique> <localleader>xrx <xref linkend="/><ESC>T"i
 
 " tables
 map! <unique> <localleader>te <entry>
@@ -82,6 +83,5 @@ map! <unique> <localleader>tr <row>><localleader>te
 map! <unique> <localleader>th <thead>><localleader>tr
 map! <unique> <localleader>td <tbody>><localleader>tr
 map! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
-
 
 let &cpo = s:save_cpo
