@@ -13,6 +13,34 @@ if exists("g:loaded_docbook_templates")
 endif
 let g:loaded_docbook_templates = 1
 
+" create <itemizedlist> out of lines with text
+if !exists(":DocbkSurroundListitems")
+  command -nargs=* -range  DocbkSurroundListitems :<line1>,<line2>call s:DocbkSurroundListitems(<f-args>)
+endif
+"-------------------------------------------------------------------"
+function s:DocbkSurroundListitems(...) range
+  " save the range to a list
+  let lines = getline(a:firstline, a:lastline)
+  " delete the lines from current buffer
+  execute a:firstline . ',' . a:lastline . 'd'
+  " jump into insert mode
+  execute 'normal' 'ki'
+  " iterate over each line in the sselected range
+  " insert start of <itemizedlist>
+  put='<itemizedlist>'
+  for line in lines
+    " remove white spaces from the beginning of the line
+    let line = substitute(line, '^\s*', '', '')
+    " remove white spaces from the end of the line
+    let line = substitute(line, '\s*$', '', '')
+    " append <lititems>
+    let line = "<listitem><para>" . line . "</para></listitem>"
+    put=line
+  endfor
+  " insert end of </itemizedlist>
+  put='</itemizedlist>'
+endfunction
+"-------------------------------------------------------------------"
 map! <unique> <localleader>ap <appendix <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
 map! <unique> <localleader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pt<ESC>[][]i
 map! <unique> <localleader>cl <calloutlist>><localleader>ct
