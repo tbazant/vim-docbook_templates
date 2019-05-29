@@ -18,27 +18,33 @@ if !exists(":DocbkSurroundListitems")
   command -nargs=* -range  DocbkSurroundListitems :<line1>,<line2>call s:DocbkSurroundListitems(<f-args>)
 endif
 "-------------------------------------------------------------------"
-function s:DocbkSurroundListitems(...) range
+function s:DocbkSurroundListitems(il, trim, ...) range
   " save the range to a list
   let lines = getline(a:firstline, a:lastline)
   " delete the lines from current buffer
   execute a:firstline . ',' . a:lastline . 'd'
   " jump into insert mode
   execute 'normal' 'ki'
+  if a:il == 'il'
+    " insert start of <itemizedlist>
+    put='<itemizedlist>'
+  endif
   " iterate over each line in the sselected range
-  " insert start of <itemizedlist>
-  put='<itemizedlist>'
   for line in lines
-    " remove white spaces from the beginning of the line
-    let line = substitute(line, '^\s*', '', '')
-    " remove white spaces from the end of the line
-    let line = substitute(line, '\s*$', '', '')
+    if a:trim == 'trim'
+      " remove white spaces from the beginning of the line
+      let line = substitute(line, '^\s*', '', '')
+      " remove white spaces from the end of the line
+      let line = substitute(line, '\s*$', '', '')
+    endif
     " append <lititems>
     let line = "<listitem><para>" . line . "</para></listitem>"
     put=line
   endfor
-  " insert end of </itemizedlist>
-  put='</itemizedlist>'
+  if a:il == 'il'
+    " insert end of </itemizedlist>
+    put='</itemizedlist>'
+  endif
 endfunction
 "-------------------------------------------------------------------"
 map! <unique> <localleader>ap <appendix <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
