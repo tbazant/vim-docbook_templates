@@ -23,5 +23,8 @@ Commands:
 :DocbkIlist2Proc
   Converts <itemizedlist> to <procedure>.
 
+:DocbkProc2Ilist
+  Converts <procedure> to <itemizedlist>.
+
                                                            *docbook_templates-settings*
 (none yet)

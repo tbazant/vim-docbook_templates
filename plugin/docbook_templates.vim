@@ -21,12 +21,25 @@ endif
 if !exists(":DocbkIlist2Proc")
   command -nargs=* -range  DocbkIlist2Proc :<line1>,<line2>call s:DocbkIlist2Proc(<f-args>)
 endif
+" turn <procedure> into <itemizedlist>
+if !exists(":DocbkProc2Ilist")
+  command -nargs=* -range  DocbkProc2Ilist :<line1>,<line2>call s:DocbkProc2Ilist(<f-args>)
+endif
 "-------------------------------------------------------------------"
 function s:DocbkIlist2Proc(...)
   s/<itemizedlist>/<procedure>/e
   s/<\/itemizedlist>/<\/procedure>/e
   s/<listitem>/<step>/e
   s/<\/listitem>/<\/step>/e
+endfunction
+
+function s:DocbkProc2Ilist(...)
+  s/<procedure>/<itemizedlist>/e
+  s/<\/procedure>/<\/itemizedlist>/e
+  s/<step>/<listitem>/e
+  s/<\/step>/<\/listitem>/e
+  s/<substeps>/<\itemizedlist>/e
+  s/<\/substeps>/<\/itemizedlist>/e
 endfunction
 
 function s:DocbkSurroundListitems(il, trim, ...) range
