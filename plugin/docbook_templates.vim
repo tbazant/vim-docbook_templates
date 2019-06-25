@@ -17,7 +17,18 @@ let g:loaded_docbook_templates = 1
 if !exists(":DocbkSurroundListitems")
   command -nargs=* -range  DocbkSurroundListitems :<line1>,<line2>call s:DocbkSurroundListitems(<f-args>)
 endif
+" turn <itemizedlist> into <procedure>
+if !exists(":DocbkIlist2Proc")
+  command -nargs=* -range  DocbkIlist2Proc :<line1>,<line2>call s:DocbkIlist2Proc(<f-args>)
+endif
 "-------------------------------------------------------------------"
+function s:DocbkIlist2Proc(...)
+  s/<itemizedlist>/<procedure>/e
+  s/<\/itemizedlist>/<\/procedure>/e
+  s/<listitem>/<step>/e
+  s/<\/listitem>/<\/step>/e
+endfunction
+
 function s:DocbkSurroundListitems(il, trim, ...) range
   " save the range to a list
   let lines = getline(a:firstline, a:lastline)
@@ -29,7 +40,7 @@ function s:DocbkSurroundListitems(il, trim, ...) range
     " insert start of <itemizedlist>
     put='<itemizedlist>'
   endif
-  " iterate over each line in the sselected range
+  " iterate over each line in the selected range
   for line in lines
     if a:trim == 'trim'
       " remove white spaces from the beginning of the line

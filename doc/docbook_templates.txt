@@ -1,0 +1,27 @@
+*docbook_templates.txt* Plugin that inclides snippets of DocBook structures to make editing faster.
+
+                                                           *docbook_templates-installation*
+I recommend using a plugin manager such as vim-plug (https://github.com/junegunn/vim-plug)
+to install and update vim-daps.
+If you do not want to use a plugin manager, download and uncompress the tarball into
+your ~/.vim/plugin directory.
+
+                                                           *docbook_templates-requirements*
+You need to have 'vim-xml' (https://vimawesome.com/plugin/xml-vim) installed to use vim-docbook_templates
+commands in your Vim editor.
+
+
+
+Commands:
+:DocbkSurroundListitems <il> <trim>
+  Creates <listitem><para>'s from selected lines of plain text.
+  'il' argument adds <itemizedlist> around the lines, and adding 'trim'
+  first removes blank spaces at the beginning of text lines.
+
+  Example: :DocbkSurroundListitems 0 trim
+
+:DocbkIlist2Proc
+  Converts <itemizedlist> to <procedure>.
+
+                                                           *docbook_templates-settings*
+(none yet)
