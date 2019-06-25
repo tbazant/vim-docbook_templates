@@ -11,7 +11,7 @@ You need to have 'vim-xml' (https://vimawesome.com/plugin/xml-vim) installed to 
 commands in your Vim editor.
 
 
-
+                                                           *docbook_templates-commands*
 Commands:
 :DocbkSurroundListitems <il> <trim>
   Creates <listitem><para>'s from selected lines of plain text.
