@@ -108,6 +108,12 @@ function s:DocbkPrintTag(tag)
     endif
     " restore cursor position
     call setpos(".", curpos)
+    " do indentation for outline blocks
+    if type != 'inline'
+      let line_count = count(@z,"\n")
+      execute "normal!" line_count . "=="
+    endif
+
     " find the right cursor insert position and possibly free 1 line
     let cursor = get(get(s:tags, a:tag), 'cursor')
     if !empty(cursor)
