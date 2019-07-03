@@ -13,6 +13,178 @@ if exists("g:loaded_docbook_templates")
 endif
 let g:loaded_docbook_templates = 1
 
+" tag dictionary
+let s:tags = {}
+let s:tags.cm = { 'tag': 'command', 'type': 'inline' }
+let s:tags.em = { 'tag': 'emphasis', 'type': 'inline' }
+let s:tags.emb = { 'tag': 'emphasis', 'type': 'inline', 'param': 'role="bold"' }
+let s:tags.fn = { 'tag': 'filename', 'type': 'inline' }
+let s:tags.gm = { 'tag': 'guimenu', 'type': 'inline' }
+let s:tags.kc = { 'tag': 'keycap', 'type': 'inline' }
+let s:tags.kcf = { 'tag': 'keycap', 'type': 'inline', 'param': 'function=""', 'cursor': '""' }
+let s:tags.kca = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="alt"' }
+let s:tags.kcc = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="control"' }
+let s:tags.kcd = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="delete"' }
+let s:tags.kcs = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="shift"' }
+let s:tags.kcse = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="escape"' }
+let s:tags.tt = { 'tag': 'title', 'type': 'lonely' }
+let s:tags.pa = { 'tag': 'para', 'type': 'outline' }
+let s:tags.te = { 'tag': 'entry', 'type': 'inline' }
+let s:tags.va = { 'tag': 'varname', 'type': 'inline' }
+let s:tags.si = { 'tag': 'systemitem', 'type': 'inline' }
+let s:tags.sid = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="daemon"' }
+let s:tags.siu = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="username"' }
+let s:tags.sir = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="resource"' }
+let s:tags.qt = { 'tag': 'quote', 'type': 'inline' }
+let s:tags.rm = { 'tag': 'remark', 'type': 'inline' }
+let s:tags.rp = { 'tag': 'replaceable', 'type': 'inline' }
+let s:tags.ph = { 'tag': 'phrase', 'type': 'inline' }
+let s:tags.php = { 'tag': 'phrase', 'type': 'inline', 'param': 'role="productname"' }
+let s:tags.pk = { 'tag': 'package', 'type': 'inline' }
+let s:tags.op = { 'tag': 'option', 'type': 'inline' }
+let s:tags.ll = { 'tag': 'literal', 'type': 'inline' }
+let s:tags.ln = { 'tag': 'link', 'type': 'inline', 'param': 'xlink:href=""', 'nopair': 1, 'cursor': '""' }
+let s:tags.xr = { 'tag': 'xref', 'type': 'inline', 'param': 'linkend=""', 'nopair': 1, 'cursor': '""' }
+let s:tags.tm = { 'tag': 'term', 'type': 'lonely' }
+let s:tags.li = { 'tag': 'listitem', 'type': 'outline' }
+let s:tags.lip = { 'tag': 'listitem', 'type': 'outline', 'include': ['pa'] }
+let s:tags.im = { 'tag': 'important', 'type': 'outline', 'include': ['tt','pa'], 'cursor': 'tt' }
+let s:tags.il = { 'tag': 'itemizedlist', 'type': 'outline', 'include': ['lip'] }
+let s:tags.km = { 'tag': 'keycombo', 'type': 'inline', 'include': ['kc'] }
+let s:tags.ap = { 'tag': 'appendix', 'type': 'outline', 'param': 'id=""', 'include': ['tt', 'pa'], 'cursor': '""' }
+let s:tags.ct = { 'tag': 'callout', 'type': 'outline', 'param': 'arearefs=""', 'include': [ 'pa'], 'cursor': '""' }
+let s:tags.cl = { 'tag': 'calloutlist', 'type': 'outline', 'include': [ 'ct'], 'cursor': '""' }
+let s:tags.co = { 'tag': 'co', 'type': 'inline', 'param': 'id=""', 'cursor': '""' }
+let s:tags.ex = { 'tag': 'example', 'type': 'outline', 'include': [ 'tt' ], 'cursor': 'tt' }
+let s:tags.nt = { 'tag': 'note', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.mn = { 'tag': 'menuchoice', 'type': 'inline', 'include': [ 'gm' ] }
+let s:tags.ol = { 'tag': 'orderedlist', 'type': 'outline', 'include': [ 'lip' ] }
+let s:tags.pr = { 'tag': 'procedure', 'type': 'outline', 'include': [ 'st' ] }
+let s:tags.st = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ] }
+let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.sc = { 'tag': 'screen', 'type': 'inline' }
+let s:tags.tp = { 'tag': 'tip', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.wn = { 'tag': 'warning', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.ve = { 'tag': 'varlistentry', 'type': 'outline', 'include': [ 'tm', 'lip' ], 'cursor': 'tm' }
+let s:tags.vl = { 'tag': 'variablelist', 'type': 'outline', 'include': [ 've' ], 'cursor': 'tm' }
+"noremap! <unique> <localleader>ge <glossentry>><localleader>gt<ESC>o<localleader>gd
+"noremap! <unique> <localleader>gd <glossdef>><localleader>pa
+"noremap! <unique> <localleader>gl <glossary>><localleader>tt<ESC>o<localleader>ge<ESC>?title<CR>F<i
+"noremap! <unique> <localleader>gt <glossterm <localleader>id>
+"noremap! <unique> <localleader>in <indexterm>><primary><ESC>o<secondary><ESC>[]i
+"noremap! <unique> <localleader>pt <part <localleader>id>><localleader>tt<ESC>o
+"noremap! <unique> <localleader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pt<ESC>[][]i
+"noremap! <unique> <localleader>ch <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pa<ESC>[]i
+"noremap! <unique> <localleader>fg <figure>><localleader>tt<ESC>o<mediaobject>><imageobject role="fo">><imagedata fileref="" width="70%" format="PNG"/><ESC>jo<imageobject role="html">><imagedata fileref="" width="70%" format="PNG"/><ESC>[][]i
+
+" tables
+noremap! <unique> <localleader>tr <row>><localleader>te
+noremap! <unique> <localleader>th <thead>><localleader>tr
+noremap! <unique> <localleader>td <tbody>><localleader>tr
+noremap! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
+
+
+""""""" generally render a given DB tag
+if !exists(":DocbkPrintTag")
+  command -nargs=1 -range DocbkPrintTag :call s:DocbkPrintTag(<f-args>)
+endif
+
+function s:DocbkPrintTag(tag)
+  " remember initial cursor position
+  let curpos = getcurpos()
+  " repeat the outer tag as specified
+  let result = repeat(s:DocbkRenderTag(a:tag), v:count1)
+  if !empty(result)
+    " use 'z' register to put the text into buffer
+    let @z = result
+    " depending on the tag type, decide whether p or P put mode
+    let type = get(get(s:tags, a:tag), 'type')
+    if type == 'inline'
+      normal! "zp
+    else
+      normal! "zP
+    endif
+    " restore cursor position
+    call setpos(".", curpos)
+    " find the right cursor insert position and possibly free 1 line
+    let cursor = get(get(s:tags, a:tag), 'cursor')
+    if !empty(cursor)
+      " if 'cursor' is "", then insert cursor inbetween
+      if cursor == '""'
+        call search('""', 'zW')
+        normal! l
+        startinsert
+      else
+        let tag = get(get(s:tags, cursor), 'tag')
+        if !empty(tag)
+          call search("<\/" . tag, 'zW')
+          startinsert
+        else
+          echoerr "Cursor tag '" . tag . "' not defined"
+        endif
+      endif
+    else
+      call search("<\/", 'zW')
+      if type == 'outline'
+        normal! O
+      endif
+      startinsert
+    endif
+  endif
+endfunction
+
+function s:DocbkRenderTag(tag)
+  " do i know the tag?
+  if has_key(s:tags, a:tag)
+    let type = get(get(s:tags, a:tag), 'type')
+    let tag = get(get(s:tags, a:tag), 'tag')
+    let param = get(get(s:tags, a:tag), 'param')
+    let nopair = get(get(s:tags, a:tag), 'nopair')
+    let include = get(get(s:tags, a:tag), 'include')
+    let starttag = tag
+    let endtag = tag
+    let result = ''
+    " add optional param if set
+    if !empty(param)
+      let starttag .= ' ' . param
+    endif
+    let incl_result = ''
+    if !empty(include)
+      for incl_tag in include
+        let incl_result .= s:DocbkRenderTag(incl_tag)
+      endfor
+    endif
+    if type == 'inline'
+      if nopair
+        " nopair tags are closed straight away
+        let markup = "<" . starttag . "/>"
+      elseif !empty(incl_result)
+        let markup = "<" . starttag . ">" . incl_result . "</" . endtag . ">"
+      else
+        let markup = "<" . starttag . "></" . endtag . ">"
+      endif
+    elseif type == 'lonely'
+      if !empty(incl_result)
+        let markup = "<" . starttag . ">" . incl_result . "</" . endtag . ">\n"
+      else
+        let markup = "<" . starttag . "></" . endtag . ">\n"
+      endif
+    elseif type == "outline"
+      if !empty(incl_result)
+        let markup = "<" . starttag . ">\n" . incl_result . "</" . endtag . ">\n"
+      else
+        let markup = "<" . starttag . ">\n</" . endtag . ">\n"
+      endif
+    endif
+    let result .= markup
+    return result
+  else
+    echoerr "Unknown tag '" . a:tag . "'"
+  endif
+endfunction
+
 " create <itemizedlist> out of lines with text
 if !exists(":DocbkSurroundListitems")
   command -nargs=* -range  DocbkSurroundListitems :<line1>,<line2>call s:DocbkSurroundListitems(<f-args>)
@@ -70,76 +242,10 @@ function s:DocbkSurroundListitems(il, trim, ...) range
     put='</itemizedlist>'
   endif
 endfunction
-"-------------------------------------------------------------------"
-map! <unique> <localleader>ap <appendix <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pt<ESC>[][]i
-map! <unique> <localleader>cl <calloutlist>><localleader>ct
-map! <unique> <localleader>co <co <localleader>id/><ESC>F"i
-map! <unique> <localleader>ct <callout arearefs="">><localleader>pa<ESC>[[[[f"a
-map! <unique> <localleader>cm <command>
-map! <unique> <localleader>ch <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>emb <emphasis role="bold">
-map! <unique> <localleader>em <emphasis>
-map! <unique> <localleader>ex <example>><localleader>tt<ESC>o<localleader>pa
-map! <unique> <localleader>fn <filename>
-map! <unique> <localleader>fg <figure>><localleader>tt<ESC>o<mediaobject>><imageobject role="fo">><imagedata fileref="" width="70%" format="PNG"/><ESC>jo<imageobject role="html">><imagedata fileref="" width="70%" format="PNG"/><ESC>[][]i
-map! <unique> <localleader>ge <glossentry>><localleader>gt<ESC>o<localleader>gd
-map! <unique> <localleader>gd <glossdef>><localleader>pa
-map! <unique> <localleader>gl <glossary>><localleader>tt<ESC>o<localleader>ge<ESC>?title<CR>F<i
-map! <unique> <localleader>gt <glossterm <localleader>id>
-map! <unique> <localleader>gm <guimenu>
-map! <unique> <localleader>id xml:id=""
-map! <unique> <localleader>il <itemizedlist>><localleader>li
-map! <unique> <localleader>im <important>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>in <indexterm>><primary><ESC>o<secondary><ESC>[]i
-map! <unique> <localleader>kc <keycap>
-map! <unique> <localleader>kcf <keycap function=""/><ESC>F"i
-map! <unique> <localleader>kca <localleader>kcfalt<ESC>f>A
-map! <unique> <localleader>kcc <localleader>kcfcontrol<ESC>f>A
-map! <unique> <localleader>kcd <localleader>kcfdelete<ESC>f>A
-map! <unique> <localleader>kcs <localleader>kcfshift<ESC>f>A
-map! <unique> <localleader>kce <localleader>kcfescape<ESC>f>A
-map! <unique> <localleader>km <keycombo>><localleader>kc<ESC>O<localleader>kcf
-map! <unique> <localleader>li <listitem>><localleader>pa
-map! <unique> <localleader>ll <literal>
-map! <unique> <localleader>ln <link xlink:href=""/><ESC>F"i
-map! <unique> <localleader>mc <menuchoice><localleader>gm<ESC>11li<localleader>gm<ESC>18hi
-map! <unique> <localleader>nt <note>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>ol <orderedlist>><localleader>li
-map! <unique> <localleader>op <option>
-map! <unique> <localleader>pa <para>>
-map! <unique> <localleader>ph <phrase>
-map! <unique> <localleader>php <phrase role="productname">
-map! <unique> <localleader>pk <package>
-map! <unique> <localleader>pr <procedure>><localleader>st
-map! <unique> <localleader>pt <part <localleader>id>><localleader>tt<ESC>o
-map! <unique> <localleader>qt <quote>
-map! <unique> <localleader>rm <remark>
-map! <unique> <localleader>rp <replaceable>
-map! <unique> <localleader>s1 <sect1 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>s2 <sect2 <localleader>id>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>s3 <sect3>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>sc <screen>><ESC>kVjj:le<CR>ji
-map! <unique> <localleader>si <systemitem>
-map! <unique> <localleader>sid <systemitem class="daemon">
-map! <unique> <localleader>siip <systemitem class="ipaddress">
-map! <unique> <localleader>siu <systemitem class="username">
-map! <unique> <localleader>sir <systemitem class="resource">
-map! <unique> <localleader>st <step>><localleader>pa
-map! <unique> <localleader>tp <tip>><localleader>tt<ESC>o<localleader>pa
-map! <unique> <localleader>tt <title>
-map! <unique> <localleader>va <varname>
-map! <unique> <localleader>ve <varlistentry>><term><ESC>o<localleader>li<ESC>[]i
-map! <unique> <localleader>vl <variablelist>><localleader>ve
-map! <unique> <localleader>wn <warning>><localleader>tt<ESC>o<localleader>pa<ESC>[]i
-map! <unique> <localleader>xr <xref linkend="" /><ESC>F"i
-map! <unique> <localleader>xrx <xref linkend="/><ESC>T"i
-
-" tables
-map! <unique> <localleader>te <entry>
-map! <unique> <localleader>tr <row>><localleader>te
-map! <unique> <localleader>th <thead>><localleader>tr
-map! <unique> <localleader>td <tbody>><localleader>tr
-map! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
+"-----------------------------------------------------------------"
+for short_tag in keys(s:tags)
+  execute "inoremap <unique> <localleader>" . short_tag . " \<ESC>:DocbkPrintTag " . short_tag . "<CR>"
+  execute "nnoremap <unique> <localleader>" . short_tag . " :<C-U>DocbkPrintTag " . short_tag . "<CR>"
+endfor
 
 let &cpo = s:save_cpo
