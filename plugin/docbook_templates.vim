@@ -51,24 +51,28 @@ let s:tags.lip = { 'tag': 'listitem', 'type': 'outline', 'include': ['pa'] }
 let s:tags.im = { 'tag': 'important', 'type': 'outline', 'include': ['tt','pa'], 'cursor': 'tt' }
 let s:tags.il = { 'tag': 'itemizedlist', 'type': 'outline', 'include': ['lip'] }
 let s:tags.km = { 'tag': 'keycombo', 'type': 'inline', 'include': ['kc'] }
-let s:tags.ap = { 'tag': 'appendix', 'type': 'outline', 'param': 'id=""', 'include': ['tt', 'pa'], 'cursor': '""' }
+let s:tags.ap = { 'tag': 'appendix', 'type': 'outline', 'param': 'xml:id=""', 'include': ['tt', 'pa'], 'cursor': '""' }
 let s:tags.ct = { 'tag': 'callout', 'type': 'outline', 'param': 'arearefs=""', 'include': [ 'pa'], 'cursor': '""' }
 let s:tags.cl = { 'tag': 'calloutlist', 'type': 'outline', 'include': [ 'ct'], 'cursor': '""' }
-let s:tags.co = { 'tag': 'co', 'type': 'inline', 'param': 'id=""', 'cursor': '""' }
+let s:tags.co = { 'tag': 'co', 'type': 'inline', 'param': 'xml:id=""', 'cursor': '""' }
 let s:tags.ex = { 'tag': 'example', 'type': 'outline', 'include': [ 'tt' ], 'cursor': 'tt' }
 let s:tags.nt = { 'tag': 'note', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.mn = { 'tag': 'menuchoice', 'type': 'inline', 'include': [ 'gm' ] }
 let s:tags.ol = { 'tag': 'orderedlist', 'type': 'outline', 'include': [ 'lip' ] }
 let s:tags.pr = { 'tag': 'procedure', 'type': 'outline', 'include': [ 'st' ] }
 let s:tags.st = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ] }
-let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
-let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
-let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
+let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.sc = { 'tag': 'screen', 'type': 'inline' }
 let s:tags.tp = { 'tag': 'tip', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.wn = { 'tag': 'warning', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.ve = { 'tag': 'varlistentry', 'type': 'outline', 'include': [ 'tm', 'lip' ], 'cursor': 'tm' }
 let s:tags.vl = { 'tag': 'variablelist', 'type': 'outline', 'include': [ 've' ], 'cursor': 'tm' }
+let s:tags.qu = { 'tag': 'question', 'type': 'outline', 'include': [ 'pa' ] }
+let s:tags.an = { 'tag': 'answer', 'type': 'outline', 'include': [ 'pa' ] }
+let s:tags.qe = { 'tag': 'qandaentry', 'type': 'outline', 'include': [ 'qu', 'an' ] }
+let s:tags.qs = { 'tag': 'qandaset', 'type': 'outline', 'include': [ 'qe'  ] }
 "noremap! <unique> <localleader>ge <glossentry>><localleader>gt<ESC>o<localleader>gd
 "noremap! <unique> <localleader>gd <glossdef>><localleader>pa
 "noremap! <unique> <localleader>gl <glossary>><localleader>tt<ESC>o<localleader>ge<ESC>?title<CR>F<i
@@ -134,9 +138,9 @@ function s:DocbkPrintTag(tag)
     else
       call search("<\/", 'zW')
       if type == 'outline'
-        normal! O
+        normal! k
       endif
-      startinsert
+      startinsert!
     endif
   endif
 endfunction
