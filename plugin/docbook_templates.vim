@@ -73,6 +73,11 @@ let s:tags.qu = { 'tag': 'question', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.an = { 'tag': 'answer', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.qe = { 'tag': 'qandaentry', 'type': 'outline', 'include': [ 'qu', 'an' ] }
 let s:tags.qs = { 'tag': 'qandaset', 'type': 'outline', 'include': [ 'qe'  ] }
+let s:tags.imd = { 'tag': 'imagedata', 'type': 'outline', 'param': 'fileref="" width="75%"', 'nopair': 1 }
+let s:tags.imof = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="fo"', 'include': ['imd'] }
+let s:tags.imoh = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="html"', 'include': ['imd'] }
+let s:tags.mo = { 'tag': 'mediaobject', 'type': 'outline', 'include': ['imof', 'imoh'] }
+let s:tags.fg = { 'tag': 'figure', 'type': 'outline', 'include': ['tt', 'mo'], 'cursor': 'tt' }
 "noremap! <unique> <localleader>ge <glossentry>><localleader>gt<ESC>o<localleader>gd
 "noremap! <unique> <localleader>gd <glossdef>><localleader>pa
 "noremap! <unique> <localleader>gl <glossary>><localleader>tt<ESC>o<localleader>ge<ESC>?title<CR>F<i
@@ -81,13 +86,12 @@ let s:tags.qs = { 'tag': 'qandaset', 'type': 'outline', 'include': [ 'qe'  ] }
 "noremap! <unique> <localleader>pt <part <localleader>id>><localleader>tt<ESC>o
 "noremap! <unique> <localleader>bk <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pt<ESC>[][]i
 "noremap! <unique> <localleader>ch <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" <localleader>id><CR><ESC>O<localleader>tt<ESC>o<localleader>pa<ESC>[]i
-"noremap! <unique> <localleader>fg <figure>><localleader>tt<ESC>o<mediaobject>><imageobject role="fo">><imagedata fileref="" width="70%" format="PNG"/><ESC>jo<imageobject role="html">><imagedata fileref="" width="70%" format="PNG"/><ESC>[][]i
 
 " tables
-noremap! <unique> <localleader>tr <row>><localleader>te
-noremap! <unique> <localleader>th <thead>><localleader>tr
-noremap! <unique> <localleader>td <tbody>><localleader>tr
-noremap! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
+"noremap! <unique> <localleader>tr <row>><localleader>te
+"noremap! <unique> <localleader>th <thead>><localleader>tr
+"noremap! <unique> <localleader>td <tbody>><localleader>tr
+"noremap! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
 
 
 """"""" generally render a given DB tag
@@ -121,12 +125,14 @@ function s:DocbkPrintTag(tag)
     " find the right cursor insert position and possibly free 1 line
     let cursor = get(get(s:tags, a:tag), 'cursor')
     if !empty(cursor)
-      " if 'cursor' is "", then insert cursor inbetween
+      " 'cursor' parameter is not empty
       if cursor == '""'
+        " if 'cursor' is "", then insert cursor inbetween
         call search('""', 'zW')
         normal! l
         startinsert
       else
+        " 'cursor' is a tag; find its next occurence and put cursor inside
         let tag = get(get(s:tags, cursor), 'tag')
         if !empty(tag)
           call search("<\/" . tag, 'zW')
@@ -136,11 +142,16 @@ function s:DocbkPrintTag(tag)
         endif
       endif
     else
+      " 'cursor' parameter is empty; find next closing tag and place cursor inside
       call search("<\/", 'zW')
       if type == 'outline'
+        " for outline tags, place cursor at the end of opening tag
         normal! k
+        startinsert!
+      else
+        " for inline tags, place cursor inside the current tag
+        startinsert
       endif
-      startinsert!
     endif
   endif
 endfunction
