@@ -73,7 +73,7 @@ let s:tags.qu = { 'tag': 'question', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.an = { 'tag': 'answer', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.qe = { 'tag': 'qandaentry', 'type': 'outline', 'include': [ 'qu', 'an' ] }
 let s:tags.qs = { 'tag': 'qandaset', 'type': 'outline', 'include': [ 'qe'  ] }
-let s:tags.imd = { 'tag': 'imagedata', 'type': 'outline', 'param': 'fileref="" width="75%"', 'nopair': 1 }
+let s:tags.imd = { 'tag': 'imagedata', 'type': 'lonely', 'param': 'fileref="" width="75%"', 'nopair': 1 }
 let s:tags.imof = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="fo"', 'include': ['imd'] }
 let s:tags.imoh = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="html"', 'include': ['imd'] }
 let s:tags.mo = { 'tag': 'mediaobject', 'type': 'outline', 'include': ['imof', 'imoh'] }
@@ -187,12 +187,16 @@ function s:DocbkRenderTag(tag)
         let markup = "<" . starttag . "></" . endtag . ">"
       endif
     elseif type == 'lonely'
-      if !empty(incl_result)
-        let markup = "<" . starttag . ">" . incl_result . "</" . endtag . ">\n"
+      if nopair
+        let markup = "<" . starttag . "/>\n"
       else
-        let markup = "<" . starttag . "></" . endtag . ">\n"
+        if !empty(incl_result)
+          let markup = "<" . starttag . ">" . incl_result . "</" . endtag . ">\n"
+        else
+          let markup = "<" . starttag . "></" . endtag . ">\n"
+        endif
       endif
-    elseif type == "outline"
+    elseif type == 'outline'
       if !empty(incl_result)
         let markup = "<" . starttag . ">\n" . incl_result . "</" . endtag . ">\n"
       else
