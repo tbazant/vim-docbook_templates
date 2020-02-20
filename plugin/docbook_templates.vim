@@ -110,9 +110,12 @@ function s:DocbkPrintTag(tag)
     " depending on the tag type, decide whether p or P put mode
     let type = get(get(s:tags, a:tag), 'type')
     if type == 'inline'
-      normal! "zp
+      " paste inline and indent (fixes #6)
+      execute 'normal! "zp1=='
     else
-      normal! "zP
+      " paste outlined, count number of pasted lines and delete last line (\n)
+      " (fixes #7)
+      execute 'normal! "zP' . len(split(@z, "\n")) . 'jdd'
     endif
     " restore cursor position
     call setpos(".", curpos)
