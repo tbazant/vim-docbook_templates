@@ -16,6 +16,7 @@ let g:loaded_docbook_templates = 1
 " tag dictionary
 let s:tags = {}
 let s:tags.cm = { 'tag': 'command', 'type': 'inline' }
+let s:tags.ppt = { 'tag': 'prompt', 'type': 'inline' }
 let s:tags.em = { 'tag': 'emphasis', 'type': 'inline' }
 let s:tags.emb = { 'tag': 'emphasis', 'type': 'inline', 'param': 'role="bold"' }
 let s:tags.fn = { 'tag': 'filename', 'type': 'inline' }
@@ -26,7 +27,8 @@ let s:tags.kca = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="alt"' 
 let s:tags.kcc = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="control"' }
 let s:tags.kcd = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="delete"' }
 let s:tags.kcs = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="shift"' }
-let s:tags.kcse = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="escape"' }
+let s:tags.kce = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="enter"' }
+let s:tags.kces = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="escape"' }
 let s:tags.tt = { 'tag': 'title', 'type': 'lonely' }
 let s:tags.pa = { 'tag': 'para', 'type': 'outline' }
 let s:tags.te = { 'tag': 'entry', 'type': 'inline' }
@@ -130,9 +132,23 @@ function s:DocbkPrintTag(tag)
     if !empty(cursor)
       " 'cursor' parameter is not empty
       if cursor == '""'
-        " if 'cursor' is "", then insert cursor inbetween
-        call search('""', 'zW')
-        normal! l
+        " If 'cursor' is "", then check if 'param' is set to'xml:id' and try to
+        " copy previous xmld:id value
+        let param = get(get(s:tags, a:tag), 'param')
+        if param == 'xml:id=""'
+          " get the line number of the previous xml:id="" parameter and
+          " continue if it is > 0
+          let lnum = search('xml:id="\(\S\+\)"', 'Wbn')
+          if lnum > 0
+            " copy the value of xml:id="" into "z register
+            let @z = matchstr(getline(lnum), '\c xml:id=\([''"]\)\zs.\{-}\ze\1') . '-'
+            call search('""', 'zW')
+            execute 'normal! "zpl'
+          else
+            call search('""', 'zW')
+            normal! l
+          endif
+        endif
         startinsert
       else
         " 'cursor' is a tag; find its next occurence and put cursor inside

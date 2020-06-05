@@ -1,4 +1,4 @@
-*docbook_templates.txt* Plugin that inclides snippets of DocBook structures to make editing faster.
+*docbook_templates.txt* Plugin that includes snippets of DocBook structures to make editing faster.
 
                                                            *docbook_templates-installation*
 I recommend using a plugin manager such as vim-plug (https://github.com/junegunn/vim-plug)
