@@ -144,10 +144,10 @@ function s:DocbkPrintTag(tag)
             let @z = matchstr(getline(lnum), '\c xml:id=\([''"]\)\zs.\{-}\ze\1') . '-'
             call search('""', 'zW')
             execute 'normal! "zpl'
-          else
-            call search('""', 'zW')
-            normal! l
           endif
+        else
+          call search('""', 'zW')
+          normal! l
         endif
         startinsert
       else
