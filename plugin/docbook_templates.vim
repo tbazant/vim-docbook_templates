@@ -66,7 +66,7 @@ let s:tags.st = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
-let s:tags.sc = { 'tag': 'screen', 'type': 'inline' }
+let s:tags.sc = { 'tag': 'screen', 'type': 'outline' }
 let s:tags.tp = { 'tag': 'tip', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.wn = { 'tag': 'warning', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.ve = { 'tag': 'varlistentry', 'type': 'outline', 'include': [ 'tm', 'lip' ], 'cursor': 'tm' }
