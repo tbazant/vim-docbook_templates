@@ -64,6 +64,7 @@ let s:tags.qt = { 'tag': 'quote', 'type': 'inline' }
 let s:tags.qu = { 'tag': 'question', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.rm = { 'tag': 'remark', 'type': 'inline' }
 let s:tags.rp = { 'tag': 'replaceable', 'type': 'inline' }
+let s:tags.sec = { 'tag': 'section', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
