@@ -15,12 +15,14 @@ let g:loaded_docbook_templates = 1
 
 " tag dictionary
 let s:tags = {}
+let s:tags.ab = { 'tag': 'abstract', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.an = { 'tag': 'answer', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.ap = { 'tag': 'appendix', 'type': 'outline', 'param': 'xml:id=""', 'include': ['tt', 'pa'], 'cursor': '""' }
 let s:tags.cl = { 'tag': 'calloutlist', 'type': 'outline', 'include': [ 'ct'], 'cursor': '""' }
 let s:tags.cm = { 'tag': 'command', 'type': 'inline' }
-let s:tags.co = { 'tag': 'co', 'type': 'inline', 'param': 'xml:id=""', 'cursor': '""' }
+let s:tags.co = { 'tag': 'co', 'type': 'inline', 'nopair': 1, 'param': 'xml:id=""', 'cursor': '""' }
 let s:tags.ct = { 'tag': 'callout', 'type': 'outline', 'param': 'arearefs=""', 'include': [ 'pa'], 'cursor': '""' }
+let s:tags.ds = { 'tag': 'description', 'type': 'lonely' }
 let s:tags.em = { 'tag': 'emphasis', 'type': 'inline' }
 let s:tags.emb = { 'tag': 'emphasis', 'type': 'inline', 'param': 'role="bold"' }
 let s:tags.en = { 'tag': 'entry', 'type': 'outline' }
@@ -30,12 +32,11 @@ let s:tags.fg = { 'tag': 'figure', 'type': 'outline', 'include': ['tt', 'mo'], '
 let s:tags.fn = { 'tag': 'filename', 'type': 'inline' }
 let s:tags.gm = { 'tag': 'guimenu', 'type': 'inline' }
 let s:tags.il = { 'tag': 'itemizedlist', 'type': 'outline', 'include': ['lip'] }
-let s:tags.im = { 'tag': 'important', 'type': 'outline', 'include': ['pa'] }
+let s:tags.im = { 'tag': 'important', 'type': 'outline', 'include': ['tt','pa'], 'cursor': 'tt' }
 let s:tags.imd = { 'tag': 'imagedata', 'type': 'lonely', 'param': 'fileref="" width="75%"', 'nopair': 1 }
 let s:tags.imof = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="fo"', 'include': ['imd'] }
 let s:tags.imoh = { 'tag': 'imageobject', 'type': 'outline', 'param': 'role="html"', 'include': ['imd'] }
 let s:tags.txod = { 'tag': 'textobject', 'type': 'outline', 'param': 'role="description"', 'include': ['phl'] }
-let s:tags.imt = { 'tag': 'important', 'type': 'outline', 'include': ['tt','pa'], 'cursor': 'tt' }
 let s:tags.kc = { 'tag': 'keycap', 'type': 'inline' }
 let s:tags.kca = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="alt"' }
 let s:tags.kcc = { 'tag': 'keycap', 'type': 'inline', 'param': 'function="control"' }
@@ -49,10 +50,11 @@ let s:tags.li = { 'tag': 'listitem', 'type': 'outline' }
 let s:tags.lip = { 'tag': 'listitem', 'type': 'outline', 'include': ['pa'] }
 let s:tags.ll = { 'tag': 'literal', 'type': 'inline' }
 let s:tags.ln = { 'tag': 'link', 'type': 'inline', 'param': 'xlink:href=""', 'nopair': 1, 'cursor': '""' }
+let s:tags.md = { 'tag': 'module', 'type': 'outline', 'param': 'renderas="section" resourceref=""', 'include': ['mg'], 'cursor': 'tt' }
+let s:tags.mg = { 'tag': 'merge', 'type': 'outline', 'include': ['tt', 'ab'], 'cursor': 'tt' }
 let s:tags.mn = { 'tag': 'menuchoice', 'type': 'inline', 'include': [ 'gm' ] }
 let s:tags.mo = { 'tag': 'mediaobject', 'type': 'outline', 'include': ['imof', 'imoh', 'txod'] }
-let s:tags.nt = { 'tag': 'note', 'type': 'outline', 'include': [ 'pa' ] }
-let s:tags.ntt = { 'tag': 'note', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.nt = { 'tag': 'note', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.ol = { 'tag': 'orderedlist', 'type': 'outline', 'include': [ 'lip' ] }
 let s:tags.op = { 'tag': 'option', 'type': 'inline' }
 let s:tags.pa = { 'tag': 'para', 'type': 'outline' }
@@ -68,36 +70,31 @@ let s:tags.qt = { 'tag': 'quote', 'type': 'inline' }
 let s:tags.qu = { 'tag': 'question', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.rm = { 'tag': 'remark', 'type': 'inline' }
 let s:tags.rp = { 'tag': 'replaceable', 'type': 'inline' }
+let s:tags.rs = { 'tag': 'resource', 'type': 'outline', 'param': 'href="" xml:id=""', 'include': [ 'ds' ], 'cursor': '""' }
 let s:tags.rw = { 'tag': 'row', 'type': 'outline', 'include': [ 'en' ] }
+let s:tags.s = { 'tag': 'section', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s1 = { 'tag': 'sect1', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s2 = { 'tag': 'sect2', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.s3 = { 'tag': 'sect3', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.sc = { 'tag': 'screen', 'type': 'inline' }
 let s:tags.sco = { 'tag': 'screen', 'type': 'outline' }
-let s:tags.sec = { 'tag': 'section', 'type': 'outline', 'param': 'xml:id=""', 'include': [ 'tt', 'pa' ], 'cursor': '""' }
 let s:tags.si = { 'tag': 'systemitem', 'type': 'inline' }
 let s:tags.sid = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="daemon"' }
 let s:tags.sir = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="resource"' }
 let s:tags.siu = { 'tag': 'systemitem', 'type': 'inline', 'param': 'class="username"' }
-let s:tags.ss = { 'tag': 'superscript', 'type': 'inline' }
-let s:tags.st = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ] }
+let s:tags.ss = { 'tag': 'substeps', 'type': 'outline', 'include': ['stp'] }
+let s:tags.st = { 'tag': 'step', 'type': 'outline' }
+let s:tags.sto = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ], 'param': 'performance="optional"' }
+let s:tags.stp = { 'tag': 'step', 'type': 'outline', 'include': [ 'pa' ] }
 let s:tags.tm = { 'tag': 'term', 'type': 'lonely' }
-let s:tags.tp = { 'tag': 'tip', 'type': 'outline', 'include': [ 'pa' ] }
-let s:tags.tpt = { 'tag': 'tip', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.tp = { 'tag': 'tip', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.tt = { 'tag': 'title', 'type': 'lonely' }
 let s:tags.txod = { 'tag': 'textobject', 'type': 'outline', 'param': 'role="description"', 'include': ['phl'] }
 let s:tags.va = { 'tag': 'varname', 'type': 'inline' }
 let s:tags.ve = { 'tag': 'varlistentry', 'type': 'outline', 'include': [ 'tm', 'lip' ], 'cursor': 'tm' }
 let s:tags.vl = { 'tag': 'variablelist', 'type': 'outline', 'include': [ 've' ], 'cursor': 'tm' }
-let s:tags.wn = { 'tag': 'warning', 'type': 'outline', 'include': [ 'pa' ] }
-let s:tags.wnt = { 'tag': 'warning', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
+let s:tags.wn = { 'tag': 'warning', 'type': 'outline', 'include': [ 'tt', 'pa' ], 'cursor': 'tt' }
 let s:tags.xr = { 'tag': 'xref', 'type': 'inline', 'param': 'linkend=""', 'nopair': 1, 'cursor': '""' }
-
-" tables
-"noremap! <unique> <localleader>tr <row>><localleader>te
-"noremap! <unique> <localleader>th <thead>><localleader>tr
-"noremap! <unique> <localleader>td <tbody>><localleader>tr
-"noremap! <unique> <localleader>tb <table>><localleader>tt<ESC>o<?dbhtml table-width="%" ?><ESC>o<?dbfo table-width="%" ?><CR><tgroup cols="">><localleader>th<ESC>2jo<localleader>td<ESC>?<title><CR>f>a
 
 
 """"""" generally render a given DB tag
